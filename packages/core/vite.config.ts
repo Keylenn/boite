@@ -5,8 +5,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: './lib/index.ts',
-      name: 'BoitesCore',
-      fileName: 'boites-core'
+      name: 'BoxCore',
+      fileName: 'box-core'
     },
   },
   plugins: [dts()]

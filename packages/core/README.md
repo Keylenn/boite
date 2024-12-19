@@ -1,6 +1,9 @@
-# @boites/core
+# @boxly/core
 
-<a href="https://www.npmjs.com/package/@boites/core"><img alt="NPM version" src="https://img.shields.io/npm/v/@boites/core.svg"></a>
+
+<!-- 文档：https://flowus.cn/share/2761ab1e-029f-4820-9bf5-20819c3054d8 -->
+
+<!-- <a href="https://www.npmjs.com/package/@boites/core"><img alt="NPM version" src="https://img.shields.io/npm/v/@boites/core.svg"></a>
 <a href="https://unpkg.com/@boites/core"><img alt="Size" src="https://img.badgesize.io/https://unpkg.com/@boites/core"></a>
 <a href="https://www.npmjs.com/package/@boites/core"><img alt="NPM downloads" src="https://img.shields.io/npm/dm/@boites/core.svg"></a>
 
@@ -39,4 +42,4 @@ pnpm i
 # 启动项目
 pnpm -F core dev
 ```
-
+ -->

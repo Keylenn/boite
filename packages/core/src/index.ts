@@ -1,20 +1,18 @@
 import './style.css'
 import createBox from '../lib'
-import viteLogo from './vite.svg'
+import logo from './logo.svg'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
     <a href="https://www.npmjs.com/package/@boites/core" target="_blank" class="package">
-      <code>📦@boites/core</code>
+      <img src="${logo}" class="logo" alt="logo" />
+      <code>@boxly/core</code>
     </a>
     <div class="card">
       <button id="counter" type="button"></button>
     </div>
     <p class="read-the-docs">
-      Click on the Vite Logo and Package Name to learn more
+      Click on the Logo and Package Name to learn more
     </p>
   </div>
 `

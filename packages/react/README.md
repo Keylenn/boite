@@ -1,30 +1,30 @@
-# @boites/react
+# @boxly/react
 
-<a href="https://www.npmjs.com/package/@boites/react"><img alt="NPM version" src="https://img.shields.io/npm/v/@boites/react.svg"></a>
-<a href="https://unpkg.com/@boites/react"><img alt="Size" src="https://img.badgesize.io/https://unpkg.com/@boites/react"></a>
-<a href="https://www.npmjs.com/package/@boites/react"><img alt="NPM downloads" src="https://img.shields.io/npm/dm/@boites/react.svg"></a>
+<!-- <a href="https://www.npmjs.com/package/@boxly/react"><img alt="NPM version" src="https://img.shields.io/npm/v/@boxly/react.svg"></a>
+<a href="https://unpkg.com/@boxly/react"><img alt="Size" src="https://img.badgesize.io/https://unpkg.com/@boxly/react"></a>
+<a href="https://www.npmjs.com/package/@boxly/react"><img alt="NPM downloads" src="https://img.shields.io/npm/dm/@boxly/react.svg"></a>
 
 
-> 更便捷地集成@boites/core 和 React
+> 更便捷地集成@boxly/core 和 React
 
 
 ## 📦 安装
 pnpm:
 
 ```sh
-pnpm i @boites/react
+pnpm i @boxly/react
 ```
 
 yarn:
 
 ```sh
-yarn add @boites/react
+yarn add @boxly/react
 ```
 
 npm:
 
 ```sh
-npm i @boites/react
+npm i @boxly/react
 ```
 
 ## 🛠 本地调试
@@ -39,4 +39,4 @@ pnpm i
 # 启动项目
 pnpm -F react dev
 ```
-
+ -->

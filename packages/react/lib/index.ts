@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type {ProtectedBox, BoxData, GetSnapshot} from "@boites/core"
+import type {ProtectedBox, BoxData, GetSnapshot} from "@boxly/core"
 
 
 export type {ProtectedBox, BoxData, GetSnapshot}

@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
-import createBox from '@boites/core'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import createBox from '@boxly/core'
+import logo from './assets/logo.svg'
 import useSyncBoxStore from '../lib'
 import './App.css'
 
@@ -18,16 +17,9 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <div>
-        <a href="https://www.npmjs.com/package/@boites/react" target="_blank" className="package">
-          <code>📦 @boites/react</code>
+        <a href="https://www.npmjs.com/package/@boxly/react" target="_blank" className="package">
+        <img src={logo} className="logo" alt="logo" />
+          <code>@boxly/react</code>
         </a>
       </div>
       <div className="row">

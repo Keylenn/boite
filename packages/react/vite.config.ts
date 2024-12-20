@@ -5,8 +5,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: './lib/index.ts',
-      name: 'BoitesReact',
-      fileName: 'boites-react'
+      name: 'BoxReact',
+      fileName: 'box-react'
     },
     rollupOptions: {
       external: ['react'],

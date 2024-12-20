@@ -1,8 +1,8 @@
 {
-  "name": "@boites/react",
-  "version": "1.0.1",
+  "name": "@boxly/react",
+  "version": "1.0.0-beta.1",
   "type": "module",
-  "description": "Easier integration of @boites/core and React",
+  "description": "Easier integration of @boxly/core and React",
   "author": "keylenn <darklight_on@163.com>",
   "files": [
     "dist"
@@ -13,13 +13,13 @@
     "React",
     "hooks"
   ],
-  "main": "./dist/boites-react.umd.cjs",
-  "module": "./dist/boites-react.js",
+  "main": "./dist/box-react.umd.cjs",
+  "module": "./dist/box-react.js",
   "types": "./dist/index.d.ts",
   "exports": {
     "types": "./dist/index.d.ts",
-    "import": "./dist/boites-react.js",
-    "require": "./dist/boites-react.umd.cjs"
+    "import": "./dist/box-react.js",
+    "require": "./dist/box-react.umd.cjs"
   },
   "scripts": {
     "dev": "vite",
@@ -33,7 +33,7 @@
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0",
-    "@boites/core": "workspace:*"
+    "@boxly/core": "workspace:*"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17"

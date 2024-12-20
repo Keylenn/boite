@@ -26,7 +26,7 @@ importers:
 
   packages/react:
     specifiers:
-      '@boites/core': workspace:*
+      '@boxly/core': workspace:*
       '@types/react': ^17.0.62
       '@types/react-dom': ^17.0.20
       react: ^17.0.1
@@ -35,7 +35,7 @@ importers:
       vite: ^4.3.9
       vite-plugin-dts: ^2.3.0
     devDependencies:
-      '@boites/core': link:../core
+      '@boxly/core': link:../core
       '@types/react': 17.0.62
       '@types/react-dom': 17.0.20
       react: 17.0.2

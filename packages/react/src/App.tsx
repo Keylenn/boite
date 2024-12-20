@@ -40,8 +40,9 @@ export default App
 
 function Counter({type}: {type: '1' | '2'}) {
   const key = `count${type}`
-  const count = useSyncBoxStore(countBox, d => d[key])
-  const sharedCount = useSyncBoxStore(countBox, d => d.sharedCount)
+  const [count, sharedCount] = useSyncBoxStore(countBox, d => [d[key], d.sharedCount], {shallowCheck: true})
+  // const count = useSyncBoxStore(countBox, d => d[key])
+  // const sharedCount = useSyncBoxStore(countBox, d => d.sharedCount)
   const countButtonProps = useMemo(() => {
     return {
       key: `${key}_${count}`,

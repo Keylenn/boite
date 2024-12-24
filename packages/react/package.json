@@ -1,6 +1,6 @@
 {
   "name": "@boxly/react",
-  "version": "1.1.0-beta.1",
+  "version": "1.1.0-beta.2",
   "type": "module",
   "description": "Easier integration of @boxly/core and React",
   "author": "keylenn <darklight_on@163.com>",
@@ -44,9 +44,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Keylenn/boites.git"
+    "url": "git+https://github.com/Keylenn/boxly.git"
   },
   "bugs": {
-    "url": "https://github.com/Keylenn/boites/issues"
+    "url": "https://github.com/Keylenn/boxly/issues"
   }
 }

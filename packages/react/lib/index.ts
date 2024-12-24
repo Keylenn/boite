@@ -1,38 +1,38 @@
 import * as React from 'react'
-import type {ProtectedBox, BoxData, GetSnapshot} from "@boxly/core"
+import type {ProtectedBox, BoxData, Selector} from "@boxly/core"
 
 
-export type {ProtectedBox, BoxData, GetSnapshot}
+export type {ProtectedBox, BoxData, Selector}
+
+interface UseSyncBoxStoreOption {
+  shallowCheck?: true
+}
+
 
 export default function useSyncBoxStore<T extends ProtectedBox>(box: T): BoxData<T>
-export default function useSyncBoxStore<T extends ProtectedBox, G extends GetSnapshot<T>>(box: T, getSnapshot: G, {shallowCheck}?: {shallowCheck?: true}): ReturnType<G>
-export default function useSyncBoxStore(box: any, getSnapshot?: any, {shallowCheck}: any = {}) {
+export default function useSyncBoxStore<T extends ProtectedBox, G extends Selector<T>>(box: T, selector: G, option?: UseSyncBoxStoreOption): ReturnType<G>
+export default function useSyncBoxStore(box: any, selector?: any, {shallowCheck}: any = {}) {
 
 
-  const {getData, addListener, addUpdateListener, removeListener} = box
-  const getState = () => typeof getSnapshot === "function" ? getSnapshot(getData()) : getData()
-
+  const {getData, addListener, removeListener} = box
+  const getState = () => typeof selector === "function" ? selector(getData()) : getData()
+  
 
   const [, forceRender] = React.useReducer(s => s + 1, 0)
   const stateRef = React.useRef(getState());
 
   React.useEffect(() => {
-    let listener: any = null
+    const listener = addListener(() => {
+      const newState = getState();
 
-    if(shallowCheck) {
-      listener = addListener(() => {
-        const newState = getState();
-        if (!shallowEqual(stateRef.current, newState)) {
-          stateRef.current = newState;
-          forceRender();
-        }
-      })
-    } else {
-      listener = addUpdateListener(() => {
-        stateRef.current = getState();
-        forceRender()
-      }, getState)
-    }
+      const check = shallowCheck ? shallowEqual : Object.is
+
+      const shouldUpdate = check(stateRef.current, newState) === false
+  
+      stateRef.current = newState;
+
+      if(shouldUpdate) forceRender()
+    })
 
 
     return () => removeListener(listener)

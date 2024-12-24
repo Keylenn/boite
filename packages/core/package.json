@@ -1,6 +1,6 @@
 {
   "name": "@boxly/core",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "type": "module",
   "description": "Framework-independent, lightweight, progressive, immutable data management",
   "author": "keylenn <darklight_on@163.com>",
@@ -32,9 +32,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Keylenn/boxjs.git"
+    "url": "git+https://github.com/Keylenn/boxly.git"
   },
   "bugs": {
-    "url": "https://github.com/Keylenn/boxjs/issues"
+    "url": "https://github.com/Keylenn/boxly/issues"
   }
 }

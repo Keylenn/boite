@@ -9,7 +9,7 @@ interface UseSyncBoxStoreOption {
 }
 
 export default function useSyncBoxStore<T extends ProtectedBox>(box: T): BoxData<T>
-export default function useSyncBoxStore<T extends ProtectedBox, G extends Selector<T>>(box: T, getSnapshot: G, option?: UseSyncBoxStoreOption): ReturnType<G>
+export default function useSyncBoxStore<T extends ProtectedBox, G extends Selector<T>>(box: T, selector: G, option?: UseSyncBoxStoreOption): ReturnType<G>
 export default function useSyncBoxStore(box: ProtectedBox, selector?: any, {shallowCheck}: any = {}) {
   const {getData, addListener, removeListener} = box
   const getState = () => typeof selector === "function" ? selector(getData()) : getData()

@@ -1,63 +1,8 @@
-import * as React from 'react'
-import type {ProtectedBox, BoxData, Selector} from "@boxly/core"
+import useSyncBoxStore from "./useSyncBoxStore";
 
+export default useSyncBoxStore;
+export { default as curryUseSyncBoxStore } from "./curryUseSyncBoxStore";
+export { default as shallowEqual } from "./util/shallowEqual";
 
-export type {ProtectedBox, BoxData, Selector}
-
-interface UseSyncBoxStoreOption {
-  shallowCheck?: true
-}
-
-
-export default function useSyncBoxStore<T extends ProtectedBox>(box: T): BoxData<T>
-export default function useSyncBoxStore<T extends ProtectedBox, G extends Selector<T>>(box: T, selector: G, option?: UseSyncBoxStoreOption): ReturnType<G>
-export default function useSyncBoxStore(box: any, selector?: any, {shallowCheck}: any = {}) {
-
-
-  const {getData, addListener, removeListener} = box
-  const getState = () => typeof selector === "function" ? selector(getData()) : getData()
-  
-
-  const [, forceRender] = React.useReducer(s => s + 1, 0)
-  const stateRef = React.useRef(getState());
-
-  React.useEffect(() => {
-    const listener = addListener(() => {
-      const newState = getState();
-
-      const check = shallowCheck ? shallowEqual : Object.is
-
-      const shouldUpdate = check(stateRef.current, newState) === false
-  
-      stateRef.current = newState;
-
-      if(shouldUpdate) forceRender()
-    })
-
-
-    return () => removeListener(listener)
-  }, [])
-
-  return getState()
-}
-
-function shallowEqual<T>(objA: T, objB: T): boolean {
-  if (objA === objB) return true;
-  
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-  return false;
-  }
-  
-  const keysA = Object.keys(objA) as Array<keyof T>;
-  const keysB = Object.keys(objB) as Array<keyof T>;
-  
-  if (keysA.length !== keysB.length) return false;
-  
-  for (let key of keysA) {
-  if (!Object.prototype.hasOwnProperty.call(objB, key) || objA[key] !== objB[key]) {
-  return false;
-  }
-  }
-  
-  return true;
-  }
+export type { ProtectedBox, BoxData, Selector } from "@boxly/core";
+export type { UseSyncBoxStoreOption } from "./useSyncBoxStore";

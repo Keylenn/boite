@@ -21,7 +21,7 @@ async function createJsonBinBox<T>(iData: T, option: JsonBinOption) {
     }
   }
 
-  const box = createSingleBox(await getInitialData(), option.binId)
+  const box = createSingleBox<T>(await getInitialData(), option.binId)
 
   box.addListener(() => {
     bin.write(prev => ({

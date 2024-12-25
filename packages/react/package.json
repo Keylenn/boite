@@ -1,6 +1,6 @@
 {
   "name": "@boxly/react",
-  "version": "2.0.0-alpha.3",
+  "version": "2.1.0-alpha.3",
   "type": "module",
   "description": "Easier integration of @boxly/core and React",
   "author": "keylenn <darklight_on@163.com>",

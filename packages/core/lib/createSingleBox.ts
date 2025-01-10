@@ -10,6 +10,7 @@ export default function createSingleBox<T>(iData: T, key: string) {
     return BoxMap.get(key) as typeof box;
   }
   const box = createBox<T>(iData);
+  BoxMap.set(key, box);
 
   return box;
 }

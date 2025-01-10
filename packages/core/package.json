@@ -1,6 +1,6 @@
 {
   "name": "@boxly/core",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.1-beta.1",
   "type": "module",
   "description": "Framework-independent, lightweight, progressive, immutable data management",
   "author": "keylenn <darklight_on@163.com>",

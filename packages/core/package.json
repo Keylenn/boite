@@ -1,11 +1,12 @@
 {
   "name": "@boxly/core",
-  "version": "1.0.1-beta.1",
+  "version": "1.0.1-beta.3",
   "type": "module",
   "description": "Framework-independent, lightweight, progressive, immutable data management",
   "author": "keylenn <darklight_on@163.com>",
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "keywords": [
     "data",

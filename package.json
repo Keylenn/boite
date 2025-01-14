@@ -10,6 +10,7 @@
     "url": "git+https://github.com/Keylenn/boites.git"
   },
   "scripts": {
+    "core": "pnpm -F core dev",
     "release": "node scripts/release"
   },
   "engines": {

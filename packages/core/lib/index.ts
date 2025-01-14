@@ -1,10 +1,11 @@
 import createBox from "./createBox";
-
-export type ProtectedBox<T = any> = ReturnType<typeof createBox<T>>;
-export type BoxData<T extends ProtectedBox> = ReturnType<T["getData"]>;
-export type Selector<T extends ProtectedBox, D = BoxData<T>> = (data: D) => any;
+import type { ProtectedBox, CreateBoxOption, BoxData } from "./createBox";
 
 export default createBox;
+
+export type { ProtectedBox, CreateBoxOption, BoxData };
+
+export type Selector<T extends ProtectedBox, D = BoxData<T>> = (data: D) => any;
 
 export { default as createSingleBox } from "./createSingleBox";
 

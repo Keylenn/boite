@@ -1,4 +1,4 @@
-import { createSingleBox } from "./index";
+import { CreateBoxOption, createSingleBox } from "./index";
 import type { ProtectedBox } from "./index";
 
 export interface StorageContext<D = any> {
@@ -17,12 +17,15 @@ export interface StorageOptions {
 
 declare var window: any;
 
-function createStorageBox<T>(iData: T, key: string): ProtectedBox<T>;
 function createStorageBox<T>(
-  iData: T,
-  options: StorageOptions
+  key: string,
+  createOption?: CreateBoxOption<T>
 ): ProtectedBox<T>;
-function createStorageBox<T>(iData: T, storage: any) {
+function createStorageBox<T>(
+  options: StorageOptions,
+  createOption?: CreateBoxOption<T>
+): ProtectedBox<T>;
+function createStorageBox<T>(storage: any, createOption: any) {
   if (
     typeof window === "undefined" &&
     (typeof storage === "string" || storage.context === undefined)
@@ -40,8 +43,8 @@ function createStorageBox<T>(iData: T, storage: any) {
       : window.localStorage;
 
   const getInitialData = () => {
-    const storageDataStr = context.getItem(key);
     try {
+      const storageDataStr = context.getItem(key);
       const storageData = JSON.parse(storageDataStr);
 
       if (typeof storageData === "object") {
@@ -53,27 +56,33 @@ function createStorageBox<T>(iData: T, storage: any) {
               : +storage.expires > Date.now();
           if (!isValid) {
             context.removeItem(key);
-            return iData;
+            return null;
           }
         }
 
         return value;
       }
     } catch (error) {
-      return iData;
+      return null;
     }
   };
 
-  const box = createSingleBox<T>(getInitialData(), key);
-
-  box.addListener(() => {
-    context.setItem(
-      key,
-      JSON.stringify({
-        lastCommit: Date.now(),
-        value: box.getData(),
-      })
-    );
+  const box = createSingleBox<T>(getInitialData(), key, {
+    ...createOption,
+    onCreated: (b) => {
+      b.addListener(() => {
+        context.setItem(
+          key,
+          JSON.stringify({
+            lastCommit: Date.now(),
+            value: b.getData(),
+          })
+        );
+      });
+      if (createOption && typeof createOption.onCreated === "function") {
+        createOption.onCreated(b);
+      }
+    },
   });
 
   return box;

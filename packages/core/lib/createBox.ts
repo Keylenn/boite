@@ -1,7 +1,24 @@
+export type ProtectedBox<T = any> = ReturnType<typeof createBox<T>>;
+
+export type BoxData<T extends ProtectedBox> = ReturnType<T["getData"]>;
+
+export type ProtectedBoxData<T = any> = BoxData<ProtectedBox<T>>;
+
+export type CreateBoxOption<T = any> = {
+  onCreated?: (box: ProtectedBox<T>) => void;
+  extraStore?: {
+    getter?: () =>
+      | ProtectedBoxData<T>
+      | (() => ProtectedBoxData<T>)
+      | Promise<ProtectedBoxData<T> | (() => ProtectedBoxData<T>)>;
+    setter?: (data: BoxData<ProtectedBox<T>>) => void | Promise<void>;
+  };
+};
+
 export default function createBox<
   T,
   D = T extends () => any ? ReturnType<T> : T
->(iData: T) {
+>(iData: T, { onCreated, extraStore }: CreateBoxOption<T> = {}) {
   const initialData = typeof iData === "function" ? iData() : iData;
 
   const box = new Box<D>(initialData);
@@ -31,13 +48,68 @@ export default function createBox<
     return box.add(listener);
   }
 
+  const getExtraStoreSnapshotAsync = async () => {
+    if (
+      typeof extraStore !== "object" ||
+      typeof extraStore.getter !== "function"
+    ) {
+      throw new Error(
+        "Please check whether the option parameter is passed into the getter of extraStore."
+      );
+    }
+
+    try {
+      return (await extraStore.getter()) as D;
+    } catch (error) {
+      console.error("Error in getExtraStoreSnapshotAsync", error);
+    }
+  };
+
   const protectedBox = Object.freeze({
     getData: box.get.bind(box) as () => D,
     setData,
     addListener: box.add.bind(box),
     removeListener: box.remove.bind(box),
     addUpdateListener,
+    getExtraStoreSnapshotAsync,
   });
+
+  let _isCreated = false;
+  const _onCreated = () => {
+    if (_isCreated) return;
+
+    if (typeof extraStore === "object") {
+      const { getter, setter } = extraStore;
+
+      // Make sure data synchronization is complete before adding effects.
+      const tryToHandleEffects = () => {
+        _isCreated = true;
+        if (typeof setter !== "function") return;
+        box.add(() => {
+          setter(box.get() as any);
+        });
+        if (typeof onCreated === "function") {
+          onCreated(protectedBox as any);
+        }
+      };
+
+      if (typeof getter !== "function") return tryToHandleEffects();
+
+      let result = getter() as any;
+
+      const handler = (data: any) => {
+        if (data === undefined) return tryToHandleEffects();
+
+        if (typeof data === "function") data = data();
+        setData(data);
+
+        tryToHandleEffects();
+      };
+      result instanceof Promise ? result.then(handler) : handler(result);
+    }
+  };
+
+  _onCreated();
 
   return protectedBox;
 }

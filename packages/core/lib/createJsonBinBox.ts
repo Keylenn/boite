@@ -1,30 +1,32 @@
-import { createSingleBox } from "./index";
+import { createSingleBox, CreateBoxOption } from "./index";
 
 const BASE_URL = "https://api.jsonbin.io/v3/b";
 
 declare var window: any;
 
-async function createJsonBinBox<T>(iData: T, option: JsonBinOption) {
+function createJsonBinBox<T>(
+  iData: T,
+  option: JsonBinOption,
+  createOption?: CreateBoxOption<T>
+) {
   const bin = new JsonBin<any>(option);
 
-  const getInitialData = async () => {
-    try {
-      const json = await bin.get();
-      return json && json.record && json.record.value
-        ? json.record.value
-        : iData;
-    } catch (error) {
-      return iData;
-    }
-  };
-
-  const box = createSingleBox<T>(await getInitialData(), option.binId);
-
-  box.addListener(() => {
-    bin.write((prev) => ({
-      ...prev.record,
-      value: box.getData(),
-    }));
+  const box = createSingleBox<T>(iData, option.binId, {
+    ...createOption,
+    extraStore: {
+      getter: async () => {
+        const json = await bin.get().catch(console.error);
+        if (json && json.record) {
+          return json.record.value;
+        }
+      },
+      setter: (value) => {
+        bin.write((prev) => ({
+          ...prev.record,
+          value,
+        }));
+      },
+    },
   });
 
   return box;
@@ -81,13 +83,13 @@ export class JsonBin<T = any> {
     try {
       const response = await this.request(this.url, this.requestInit);
 
+      const json = await response.json();
       if (!response.ok) {
-        throw new Error("Error in reading data");
+        throw new Error(json.message || "Error in reading data");
       }
-      this.data = await response.json();
+      this.data = json;
       return this.data;
     } catch (error) {
-      console.error("Error in reading data", error);
       throw error;
     }
   }
@@ -100,12 +102,13 @@ export class JsonBin<T = any> {
         ),
         ...this.requestInit,
       });
+
+      const json = await response.json();
       if (!response.ok) {
-        throw new Error("Error in writing data");
+        throw new Error(json.message || "Error in writing data");
       }
-      return await response.json();
+      return json;
     } catch (error) {
-      console.error("Error in writing data:", error);
       throw error;
     }
   }
